@@ -8,15 +8,16 @@ on:
 
 jobs:
   generate_provenance:
-    # runs-on: codebuild-test-container-based-slsa-${{ github.run_id }}-${{ github.run_attempt }}
     permissions:
       actions: read
       id-token: write
       contents: write
-    uses: slsa-framework/slsa-github-generator/.github/workflows/builder_container-based_slsa3.yml@v1.7.0
-    with:
-      builder-image: "europe-west2-docker.pkg.dev/oak-ci/hello-transparent-release/hello-transparent-release"
-      builder-digest: "sha256:eb0297df0a4df8621837369006421dd972cc3e68e6da94625539f669d49f1525"
-      config-path: "buildconfigs/hello_transparent_release_slsa.toml"
-      provenance-name: "hello_transparent_release.intoto"
-      compile-builder: true
+    runs-on: codebuild-test-container-based-slsa-${{ github.run_id }}-${{ github.run_attempt }}
+    steps: 
+      - uses: slsa-framework/slsa-github-generator/.github/workflows/builder_container-based_slsa3.yml@v1.7.0
+        with:
+          builder-image: "europe-west2-docker.pkg.dev/oak-ci/hello-transparent-release/hello-transparent-release"
+          builder-digest: "sha256:eb0297df0a4df8621837369006421dd972cc3e68e6da94625539f669d49f1525"
+          config-path: "buildconfigs/hello_transparent_release_slsa.toml"
+          provenance-name: "hello_transparent_release.intoto"
+          compile-builder: true
