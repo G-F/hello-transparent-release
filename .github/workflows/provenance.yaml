@@ -8,6 +8,7 @@ on:
 
 jobs:
   generate_provenance:
+    runs-on: codebuild-test-container-based-slsa-${{ github.run_id }}-${{ github.run_attempt }}
     permissions:
       actions: read
       id-token: write
